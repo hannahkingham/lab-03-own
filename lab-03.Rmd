@@ -12,7 +12,7 @@ output: html_document
 library(tidyverse) 
 ```
 
-```{r chunk1, message = FALSE}
+```{r reading-nobel-data, message = FALSE}
 nobel <- read_csv("data/nobel.csv")
 ```
 
@@ -27,12 +27,17 @@ There are 935 observations and 26 different variables. Each row represents a dif
 #### Code
 
 ```{r nobel-living}
-# remove this comment and add your code here
+nobel_living <- nobel %>%
+  filter(!is.na(country), 
+         !gender %in% "org", 
+         is.na(died_date))
+  
 ```
 
 #### Narrative
+First filtered observations where country is not NA, then for observations where gender is not org and finally for observations with died date of NA indicating they are still alive.
 
-*Remove this text and add your answer here.*
+nobel_living is now a data frame with 228 entries, representing all nobel prize winners that are currently alive people (not organisations) and for whom country data is avaliable.
 
 
 ### Exercise 3

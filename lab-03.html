@@ -388,11 +388,19 @@ won a prize more than once), row represents every prize given out.</p>
 <h3>Exercise 2</h3>
 <div id="code" class="section level4">
 <h4>Code</h4>
-<pre class="r"><code># remove this comment and add your code here</code></pre>
+<pre class="r"><code>nobel_living &lt;- nobel %&gt;%
+  filter(!is.na(country), 
+         !gender %in% &quot;org&quot;, 
+         is.na(died_date))</code></pre>
 </div>
 <div id="narrative-1" class="section level4">
 <h4>Narrative</h4>
-<p><em>Remove this text and add your answer here.</em></p>
+<p>First filtered observations where country is not NA, then for
+observations where gender is not org and finally for observations with
+died date of NA indicating they are still alive.</p>
+<p>nobel_living is now a data frame with 228 entries, representing all
+nobel prize winners that are currently alive people (not organisations)
+and for whom country data is avaliable.</p>
 </div>
 </div>
 <div id="exercise-3" class="section level3">

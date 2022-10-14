@@ -73,9 +73,13 @@ This shows very similar results to the buzzfeed article, numbers are not exactly
 #### Code
 
 ```{r born-country-us}
-# remove this comment and add your code here
+nobel_living_science %>%
+  mutate(born_country_us =
+           if_else(born_country == 
+               "USA", "USA", "other"))%>%
+  count(born_country_us)
 ```
-
+105 of the nobel prize winners were born in the USA while 123 were born elsewhere.
 
 ### Exercise 5
 

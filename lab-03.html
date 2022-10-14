@@ -435,7 +435,18 @@ not exactly the same but general trends and proportions are.</p>
 <h3>Exercise 4</h3>
 <div id="code-2" class="section level4">
 <h4>Code</h4>
-<pre class="r"><code># remove this comment and add your code here</code></pre>
+<pre class="r"><code>nobel_living_science %&gt;%
+  mutate(born_country_us =
+           if_else(born_country == 
+               &quot;USA&quot;, &quot;USA&quot;, &quot;other&quot;))%&gt;%
+  count(born_country_us)</code></pre>
+<pre><code>## # A tibble: 2 × 2
+##   born_country_us     n
+##   &lt;chr&gt;           &lt;int&gt;
+## 1 other             123
+## 2 USA               105</code></pre>
+<p>105 of the nobel prize winners were born in the USA while 123 were
+born elsewhere.</p>
 </div>
 </div>
 <div id="exercise-5" class="section level3">

@@ -1,6 +1,6 @@
 ---
 title: "Lab 03 - Nobel laureates"
-author: "INSERT TEAM MEMBER NAMES HERE"
+author: "Hannah Kingham"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -19,8 +19,7 @@ nobel <- read_csv("data/nobel.csv")
 ### Exercise 1
 
 #### Narrative
-
-*Remove this text and add your answer here.*
+There are 935 observations and 26 different variables. Each row represents a different prize winner (there are duplicate rows if someone won a prize more than once), row represents every prize given out.
 
 
 ### Exercise 2

@@ -45,12 +45,27 @@ nobel_living is now a data frame with 228 entries, representing all nobel prize 
 #### Code
 
 ```{r facet-bar-plot}
-# remove this comment and add your code here
+nobel_living <- nobel_living %>%
+  mutate(country_us = 
+           if_else(
+             country == "USA", "USA", "other")
+         )
+nobel_living_science <- nobel_living %>%
+  filter(category %in% c("Physics", 
+                         "Chemistry",
+                         "Medicine",
+                         "Economics")
+         )
+ggplot(nobel_living_science, 
+       mapping = aes(x = country_us)) +
+geom_bar()+
+  facet_wrap(~category)+
+  coord_flip()
 ```
 
 #### Narrative
 
-*Remove this text and add your answer here.*
+This shows very similar results to the buzzfeed article, numbers are not exactly the same but general trends and proportions are.
 
 
 ### Exercise 4

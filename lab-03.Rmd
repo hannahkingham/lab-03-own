@@ -9,7 +9,8 @@ output: html_document
 ### Load packages and data
 
 ```{r load-packages, message = FALSE, warning=FALSE}
-library(tidyverse) 
+library(tidyverse)
+library(forcats)
 ```
 
 ```{r reading-nobel-data, message = FALSE}

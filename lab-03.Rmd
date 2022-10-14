@@ -31,7 +31,6 @@ nobel_living <- nobel %>%
   filter(!is.na(country), 
          !gender %in% "org", 
          is.na(died_date))
-  
 ```
 
 #### Narrative
@@ -57,10 +56,15 @@ nobel_living_science <- nobel_living %>%
                          "Economics")
          )
 ggplot(nobel_living_science, 
-       mapping = aes(x = country_us)) +
+       mapping = aes(x = country_us, fill = country_us)) +
 geom_bar()+
   facet_wrap(~category)+
-  coord_flip()
+  coord_flip() +
+  theme(legend.position = "None")+
+  labs(title = "Nobel Prize Winners by Category and Country in during prize year",
+       y = "Number of winners",
+       x = "Country in when awarded",
+       )
 ```
 
 #### Narrative
@@ -85,12 +89,27 @@ nobel_living_science %>%
 
 #### Narrative
 
-*Remove this text and add your answer here.*
+This again shows very similar results to the BuzzFeed article and supports their claim. We can see that a large proportion of those winning prizes while in the US were actually born elsewhere. We also see that for winners who were not in the US when they won, very few of them were born in the US.
 
 #### Code
 
 ```{r facet-bar-plot-redo}
-# remove this comment and add your code here
+nobel_living_science %>%
+  mutate(born_country_us =
+           if_else(born_country == 
+               "USA", "USA", "Other"))%>%
+  ggplot(nobel_living_science, 
+         mapping = aes(x = country_us)) +
+  geom_bar(mapping = aes(
+    fill = born_country_us
+  ))+
+    facet_wrap(~category)+
+    coord_flip()+
+    labs(title = "Currently Alive Nobel Prize Winners",
+         subtitle = "By prize category and country the were in during their prize year",
+         x = "Number of winners",
+         y = "Country of Laurete in Prize Year",
+         fill = "Country Born In")
 ```
 
 
@@ -99,9 +118,32 @@ nobel_living_science %>%
 #### Code
 
 ```{r born-country}
-# remove this comment and add your code here
+new_nobel_living <- nobel_living %>%
+  mutate(born_country = 
+           case_when(
+             born_country == "Scotland" ~ "United Kingdom", 
+             TRUE ~ born_country))%>%
+  mutate(born_country_us =
+           if_else(born_country == 
+               "USA", "USA", "other"))%>%
+  filter(country_us == "USA" &
+         born_country_us == "other")
+
+ggplot(new_nobel_living,
+       mapping = aes(
+         x =fct_rev(fct_infreq(born_country))))+
+geom_bar(fill = "purple")+
+coord_flip()+
+labs(
+  title = "Currently Alive US Immigrant Nobel Prize Winners",
+  subtitle = "By County of Birth",
+  y = "Number of Laureates",
+  x = "Country of Birth")
+
+new_nobel_living %>%
+  count(fct_infreq(born_country))
 ```
 
 #### Narrative
 
-*Remove this text and add your answer here.*
+According to the data Germany and the UK are joint most common for the birth country of currently alive nobel prize winners who won the award while based in the US. This, however, is not true since Scotland is a separate country. If we change all Scotland observations to united kingdom, we can see that the UK has the most winners.
